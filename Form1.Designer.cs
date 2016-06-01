@@ -64,35 +64,35 @@
             // novoToolStripMenuItem
             // 
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.novoToolStripMenuItem.Text = "Novo";
             this.novoToolStripMenuItem.Click += new System.EventHandler(this.menu_novo_Click);
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.abrirToolStripMenuItem.Text = "Abrir...";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.menu_abrir_Click);
             // 
             // salvarToolStripMenuItem
             // 
             this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
-            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.salvarToolStripMenuItem.Text = "Salvar";
             this.salvarToolStripMenuItem.Click += new System.EventHandler(this.menu_salvar_Click);
             // 
             // salvarComoToolStripMenuItem
             // 
             this.salvarComoToolStripMenuItem.Name = "salvarComoToolStripMenuItem";
-            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.salvarComoToolStripMenuItem.Text = "Salvar Como...";
             this.salvarComoToolStripMenuItem.Click += new System.EventHandler(this.menu_salvarcomo_Click);
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.menu_sair_Click);
             // 
@@ -114,6 +114,7 @@
             this.edTexto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.edTexto.Size = new System.Drawing.Size(722, 431);
             this.edTexto.TabIndex = 1;
+            this.edTexto.TextChanged += new System.EventHandler(this.edTexto_TextChanged);
             // 
             // dlgAbrir
             // 
