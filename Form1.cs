@@ -11,8 +11,12 @@ using System.Windows.Forms;
 
 namespace Exemplo1 {
     public partial class FormNotepad : Form {
+
+        private string CurrentFileName;
+
         public FormNotepad() {
             InitializeComponent();
+            this.CurrentFileName = "";
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -20,6 +24,7 @@ namespace Exemplo1 {
         }
 
         private void novoToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.CurrentFileName = "";
             edTexto.Clear();
         }
 
@@ -30,17 +35,25 @@ namespace Exemplo1 {
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e) {
             dlgAbrir.ShowDialog();
-            string filename = dlgAbrir.FileName;
+            this.CurrentFileName = dlgAbrir.FileName;
 
-            edTexto.Text = FormNotepad.CarregaArquivo(filename);
+            edTexto.Text = FormNotepad.CarregaArquivo(this.CurrentFileName);
+        }
+
+        private void salvarToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (String.IsNullOrEmpty(this.CurrentFileName)) {
+                salvarComoToolStripMenuItem_Click(sender, e);
+                return;
+            }
+            string texto = edTexto.Text;
+            FormNotepad.SalvaArquivo(this.CurrentFileName, texto);
         }
 
         private void salvarComoToolStripMenuItem_Click(object sender, EventArgs e) {
             dlgSalvar.ShowDialog();
-            string filename = dlgSalvar.FileName;
+            this.CurrentFileName = dlgSalvar.FileName;
             string texto = edTexto.Text;
-
-            FormNotepad.SalvaArquivo(filename, texto);
+            FormNotepad.SalvaArquivo(this.CurrentFileName, texto);
         }
 
         private static string CarregaArquivo(string filename) {
@@ -56,7 +69,5 @@ namespace Exemplo1 {
                 writer.Write(texto);
             }
         }
-
-
     }
 }
