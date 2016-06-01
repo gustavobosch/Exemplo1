@@ -13,7 +13,7 @@ namespace Exemplo1 {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmNotepad());
+            Application.Run(new FormNotepad());
         }
     }
 }
