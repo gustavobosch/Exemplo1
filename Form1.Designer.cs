@@ -32,6 +32,9 @@
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fonteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edTexto = new System.Windows.Forms.TextBox();
+            this.dlgFonte = new System.Windows.Forms.FontDialog();
+            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
+            this.dlgSalvar = new System.Windows.Forms.SaveFileDialog();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +66,7 @@
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
             this.novoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.novoToolStripMenuItem.Text = "Novo";
+            this.novoToolStripMenuItem.Click += new System.EventHandler(this.novoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
@@ -94,6 +98,7 @@
             this.fonteToolStripMenuItem.Name = "fonteToolStripMenuItem";
             this.fonteToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.fonteToolStripMenuItem.Text = "Fonte";
+            this.fonteToolStripMenuItem.Click += new System.EventHandler(this.fonteToolStripMenuItem_Click);
             // 
             // edTexto
             // 
@@ -106,6 +111,10 @@
             this.edTexto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.edTexto.Size = new System.Drawing.Size(722, 431);
             this.edTexto.TabIndex = 1;
+            // 
+            // dlgAbrir
+            // 
+            this.dlgAbrir.FileName = "openFileDialog1";
             // 
             // frmNotepad
             // 
@@ -135,6 +144,9 @@
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fonteToolStripMenuItem;
         private System.Windows.Forms.TextBox edTexto;
+        private System.Windows.Forms.FontDialog dlgFonte;
+        private System.Windows.Forms.OpenFileDialog dlgAbrir;
+        private System.Windows.Forms.SaveFileDialog dlgSalvar;
     }
 }
 

@@ -17,5 +17,14 @@ namespace Exemplo1 {
         private void sairToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
         }
+
+        private void novoToolStripMenuItem_Click(object sender, EventArgs e) {
+            edTexto.Clear();
+        }
+
+        private void fonteToolStripMenuItem_Click(object sender, EventArgs e) {
+            dlgFonte.ShowDialog();
+            edTexto.Font = dlgFonte.Font;
+        }
     }
 }
