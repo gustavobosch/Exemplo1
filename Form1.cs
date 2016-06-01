@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Exemplo1 {
-    public partial class Form1 : Form {
-        public Form1() {
+    public partial class frmNotepad : Form {
+        public frmNotepad() {
             InitializeComponent();
         }
     }
