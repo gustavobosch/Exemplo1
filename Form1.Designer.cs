@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.menu = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fonteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fonteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edTexto = new System.Windows.Forms.TextBox();
             this.menu.SuspendLayout();
             this.SuspendLayout();
@@ -57,12 +57,6 @@
             this.arquivoToolStripMenuItem.Name = "arquivoToolStripMenuItem";
             this.arquivoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.arquivoToolStripMenuItem.Text = "Arquivo";
-            // 
-            // fonteToolStripMenuItem
-            // 
-            this.fonteToolStripMenuItem.Name = "fonteToolStripMenuItem";
-            this.fonteToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.fonteToolStripMenuItem.Text = "Fonte";
             // 
             // novoToolStripMenuItem
             // 
@@ -93,6 +87,13 @@
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
             this.sairToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sairToolStripMenuItem.Text = "Sair";
+            this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
+            // 
+            // fonteToolStripMenuItem
+            // 
+            this.fonteToolStripMenuItem.Name = "fonteToolStripMenuItem";
+            this.fonteToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.fonteToolStripMenuItem.Text = "Fonte";
             // 
             // edTexto
             // 

@@ -13,5 +13,9 @@ namespace Exemplo1 {
         public frmNotepad() {
             InitializeComponent();
         }
+
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
     }
 }
