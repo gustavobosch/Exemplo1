@@ -31,6 +31,7 @@
             this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.edTexto = new System.Windows.Forms.TextBox();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,11 +94,24 @@
             this.sairToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             // 
+            // edTexto
+            // 
+            this.edTexto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.edTexto.Location = new System.Drawing.Point(0, 27);
+            this.edTexto.Multiline = true;
+            this.edTexto.Name = "edTexto";
+            this.edTexto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.edTexto.Size = new System.Drawing.Size(722, 431);
+            this.edTexto.TabIndex = 1;
+            // 
             // frmNotepad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 459);
+            this.Controls.Add(this.edTexto);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
             this.Name = "frmNotepad";
@@ -119,6 +133,7 @@
         private System.Windows.Forms.ToolStripMenuItem salvarComoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fonteToolStripMenuItem;
+        private System.Windows.Forms.TextBox edTexto;
     }
 }
 
