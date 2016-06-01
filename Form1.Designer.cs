@@ -86,6 +86,7 @@
             this.salvarComoToolStripMenuItem.Name = "salvarComoToolStripMenuItem";
             this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.salvarComoToolStripMenuItem.Text = "Salvar Como...";
+            this.salvarComoToolStripMenuItem.Click += new System.EventHandler(this.salvarComoToolStripMenuItem_Click);
             // 
             // sairToolStripMenuItem
             // 
@@ -117,7 +118,7 @@
             // 
             this.dlgAbrir.FileName = "openFileDialog1";
             // 
-            // frmNotepad
+            // FormNotepad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -125,7 +126,7 @@
             this.Controls.Add(this.edTexto);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
-            this.Name = "frmNotepad";
+            this.Name = "FormNotepad";
             this.Text = "Broco di Nota";
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();

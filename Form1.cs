@@ -35,11 +35,28 @@ namespace Exemplo1 {
             edTexto.Text = FormNotepad.CarregaArquivo(filename);
         }
 
+        private void salvarComoToolStripMenuItem_Click(object sender, EventArgs e) {
+            dlgSalvar.ShowDialog();
+            string filename = dlgSalvar.FileName;
+            string texto = edTexto.Text;
+
+            FormNotepad.SalvaArquivo(filename, texto);
+        }
+
         private static string CarregaArquivo(string filename) {
             FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
             using (StreamReader reader = new StreamReader(fs, Encoding.UTF8)) {
                 return reader.ReadToEnd();
             }
         }
+
+        private static void SalvaArquivo(string filename, string texto) {
+            FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
+            using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8)) {
+                writer.Write(texto);
+            }
+        }
+
+
     }
 }
