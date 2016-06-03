@@ -14,18 +14,16 @@ namespace Exemplo1 {
 
         private static string ApplicationName = "Broco di Nota";
 
-        private string CurrentFileName;
-        private bool Modified;
+        private FileTab CurrentFileTab;
 
         public FormNotepad() {
             InitializeComponent();
-            this.CurrentFileName = "";
-            this.Modified = false;
-            this.Text = FormNotepad.FormName(this.CurrentFileName, this.Modified);
+            this.CurrentFileTab = null;
+            this.Text = FormNotepad.FormName("", false);
         }
 
         private void menu_sair_Click(object sender, EventArgs e) {
-            if (this.Modified) {
+            if (this.CurrentFileTab.Modified) {
                 switch (FormNotepad.ConfirmaFecharArquivo()) {
                     case DialogResult.No:
                         break;
@@ -40,7 +38,7 @@ namespace Exemplo1 {
         }
 
         private void menu_novo_Click(object sender, EventArgs e) {
-            if (this.Modified) {
+            if (this.CurrentFileTab.Modified) {
                 switch (FormNotepad.ConfirmaFecharArquivo()) {
                     case DialogResult.No:
                         break;
@@ -51,19 +49,19 @@ namespace Exemplo1 {
                         return;
                 }
             }
-            edTexto.Clear();
-            this.CurrentFileName = "";
-            this.Modified = false;
-            this.Text = FormNotepad.FormName(this.CurrentFileName, this.Modified);
+            this.CurrentFileTab.ContentEditor.Clear();
+            this.CurrentFileTab.FileName = "";
+            this.CurrentFileTab.Modified = false;
+            this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
         private void menu_fonte_Click(object sender, EventArgs e) {
             dlgFonte.ShowDialog();
-            edTexto.Font = dlgFonte.Font;
+            this.CurrentFileTab.ContentEditor.Font = dlgFonte.Font;
         }
 
         private void menu_abrir_Click(object sender, EventArgs e) {
-            if (this.Modified) {
+            if (this.CurrentFileTab.Modified) {
                 switch (FormNotepad.ConfirmaFecharArquivo()) {
                     case DialogResult.No:
                         break;
@@ -75,36 +73,36 @@ namespace Exemplo1 {
                 }
             }
             dlgAbrir.ShowDialog();
-            this.CurrentFileName = dlgAbrir.FileName;
-            edTexto.Text = FormNotepad.CarregaArquivo(this.CurrentFileName);
-            this.Modified = false;
-            this.Text = FormNotepad.FormName(this.CurrentFileName, this.Modified);
+            this.CurrentFileTab.FileName = dlgAbrir.FileName;
+            this.CurrentFileTab.ContentEditor.Text = FormNotepad.CarregaArquivo(this.CurrentFileTab.FileName);
+            this.CurrentFileTab.Modified = false;
+            this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
         private void menu_salvar_Click(object sender, EventArgs e) {
-            if (String.IsNullOrEmpty(this.CurrentFileName)) {
+            if (String.IsNullOrEmpty(this.CurrentFileTab.FileName)) {
                 menu_salvarcomo_Click(sender, e);
                 return;
             }
-            string texto = edTexto.Text;
-            FormNotepad.SalvaArquivo(this.CurrentFileName, texto);
-            this.Modified = false;
-            this.Text = FormNotepad.FormName(this.CurrentFileName, this.Modified);
+            string texto = this.CurrentFileTab.ContentEditor.Text;
+            FormNotepad.SalvaArquivo(this.CurrentFileTab.FileName, texto);
+            this.CurrentFileTab.Modified = false;
+            this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
         private void menu_salvarcomo_Click(object sender, EventArgs e) {
             dlgSalvar.ShowDialog();
-            this.CurrentFileName = dlgSalvar.FileName;
-            string texto = edTexto.Text;
-            FormNotepad.SalvaArquivo(this.CurrentFileName, texto);
-            this.Modified = false;
-            this.Text = FormNotepad.FormName(this.CurrentFileName, this.Modified);
+            this.CurrentFileTab.FileName = dlgSalvar.FileName;
+            string texto = this.CurrentFileTab.ContentEditor.Text;
+            FormNotepad.SalvaArquivo(this.CurrentFileTab.FileName, texto);
+            this.CurrentFileTab.Modified = false;
+            this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
-        private void edTexto_TextChanged(object sender, EventArgs e) {
-            if (!this.Modified) {
-                this.Modified = true;
-                this.Text = FormNotepad.FormName(this.CurrentFileName, this.Modified);
+        private void textBox_TextChanged(object sender, EventArgs e) {
+            if (!this.CurrentFileTab.Modified) {
+                this.CurrentFileTab.Modified = true;
+                this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
             }
         }
 
@@ -135,6 +133,18 @@ namespace Exemplo1 {
                 str += current_filename + "  -  ";
             }
             return str + FormNotepad.ApplicationName;
+        }
+    }
+
+    public class FileTab {
+        public string FileName { get; set; }
+        public bool Modified { get; set; }
+        public TextBox ContentEditor { get; set; }
+
+        public FileTab(string FileName, bool Modified) {
+            this.FileName = FileName;
+            this.Modified = Modified;
+            this.ContentEditor = new TextBox();
         }
     }
 }

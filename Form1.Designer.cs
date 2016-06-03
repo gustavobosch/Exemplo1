@@ -31,10 +31,10 @@
             this.salvarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fonteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.edTexto = new System.Windows.Forms.TextBox();
             this.dlgFonte = new System.Windows.Forms.FontDialog();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.dlgSalvar = new System.Windows.Forms.SaveFileDialog();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,25 +103,23 @@
             this.fonteToolStripMenuItem.Text = "Fonte";
             this.fonteToolStripMenuItem.Click += new System.EventHandler(this.menu_fonte_Click);
             // 
-            // edTexto
+            // tabControl1
             // 
-            this.edTexto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.edTexto.Location = new System.Drawing.Point(0, 27);
-            this.edTexto.Multiline = true;
-            this.edTexto.Name = "edTexto";
-            this.edTexto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.edTexto.Size = new System.Drawing.Size(722, 431);
-            this.edTexto.TabIndex = 1;
-            this.edTexto.TextChanged += new System.EventHandler(this.edTexto_TextChanged);
+            this.tabControl1.Location = new System.Drawing.Point(0, 27);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(722, 434);
+            this.tabControl1.TabIndex = 1;
             // 
             // FormNotepad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 459);
-            this.Controls.Add(this.edTexto);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
             this.Name = "FormNotepad";
@@ -143,10 +141,10 @@
         private System.Windows.Forms.ToolStripMenuItem salvarComoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fonteToolStripMenuItem;
-        private System.Windows.Forms.TextBox edTexto;
         private System.Windows.Forms.FontDialog dlgFonte;
         private System.Windows.Forms.OpenFileDialog dlgAbrir;
         private System.Windows.Forms.SaveFileDialog dlgSalvar;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
 
