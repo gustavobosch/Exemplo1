@@ -35,6 +35,7 @@
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.dlgSalvar = new System.Windows.Forms.SaveFileDialog();
             this.abas = new System.Windows.Forms.TabControl();
+            this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +57,7 @@
             this.abrirToolStripMenuItem,
             this.salvarToolStripMenuItem,
             this.salvarComoToolStripMenuItem,
+            this.fecharToolStripMenuItem,
             this.sairToolStripMenuItem});
             this.arquivoToolStripMenuItem.Name = "arquivoToolStripMenuItem";
             this.arquivoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -113,6 +115,14 @@
             this.abas.SelectedIndex = 0;
             this.abas.Size = new System.Drawing.Size(723, 432);
             this.abas.TabIndex = 1;
+            this.abas.TabIndexChanged += new System.EventHandler(this.abas_TabIndexChanged);
+            // 
+            // fecharToolStripMenuItem
+            // 
+            this.fecharToolStripMenuItem.Name = "fecharToolStripMenuItem";
+            this.fecharToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fecharToolStripMenuItem.Text = "Fechar";
+            this.fecharToolStripMenuItem.Click += new System.EventHandler(this.menu_fechar_Click);
             // 
             // FormNotepad
             // 
@@ -145,6 +155,7 @@
         private System.Windows.Forms.OpenFileDialog dlgAbrir;
         private System.Windows.Forms.SaveFileDialog dlgSalvar;
         private System.Windows.Forms.TabControl abas;
+        private System.Windows.Forms.ToolStripMenuItem fecharToolStripMenuItem;
     }
 }
 

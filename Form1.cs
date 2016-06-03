@@ -15,29 +15,24 @@ namespace Exemplo1 {
         public static string ApplicationName = "Broco di Nota";
         public static AnchorStyles AnchorAll = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
+        private List<FileTab> FileTabList;
         private FileTab CurrentFileTab;
+        private int CurrentTabIndex;
         private int NewFileCount;
 
         public FormNotepad() {
             InitializeComponent();
+            this.FileTabList = new List<FileTab>();
             this.CurrentFileTab = null;
+            this.CurrentTabIndex = -1;
             this.NewFileCount = 0;
             this.Text = FormNotepad.FormName("", false);
+            this.fecharToolStripMenuItem.Enabled = false;
         }
 
-        private void menu_sair_Click(object sender, EventArgs e) {
-            if (this.CurrentFileTab.Modified) {
-                switch (FormNotepad.ConfirmaFecharArquivo()) {
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Yes:
-                        menu_salvar_Click(sender, e);
-                        break;
-                    default:
-                        return;
-                }
-            }
-            Application.Exit();
+        private void menu_fonte_Click(object sender, EventArgs e) {
+            dlgFonte.ShowDialog();
+            this.CurrentFileTab.ContentEditor.Font = dlgFonte.Font;
         }
 
         private void menu_novo_Click(object sender, EventArgs e) {
@@ -52,18 +47,12 @@ namespace Exemplo1 {
                         return;
                 }
             }
-
             this.CurrentFileTab = NovaAba("", false);
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
-        private void menu_fonte_Click(object sender, EventArgs e) {
-            dlgFonte.ShowDialog();
-            this.CurrentFileTab.ContentEditor.Font = dlgFonte.Font;
-        }
-
         private void menu_abrir_Click(object sender, EventArgs e) {
-            if (this.CurrentFileTab.Modified) {
+            if (this.CurrentFileTab != null && this.CurrentFileTab.Modified) {
                 switch (FormNotepad.ConfirmaFecharArquivo()) {
                     case DialogResult.No:
                         break;
@@ -75,7 +64,7 @@ namespace Exemplo1 {
                 }
             }
             dlgAbrir.ShowDialog();
-            this.CurrentFileTab.FileName = dlgAbrir.FileName;
+            this.CurrentFileTab = NovaAba(dlgAbrir.FileName, false);
             this.CurrentFileTab.ContentEditor.Text = FormNotepad.CarregaArquivo(this.CurrentFileTab.FileName);
             this.CurrentFileTab.Modified = false;
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
@@ -101,6 +90,18 @@ namespace Exemplo1 {
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
+        private void menu_fechar_Click(object sender, EventArgs e) {
+            this.fecharToolStripMenuItem.Enabled = (this.abas.TabCount - 1 > 0);
+
+            if (this.abas.TabCount <= 0) {
+                this.CurrentTabIndex = -1;
+                this.CurrentFileTab = null;
+                return;
+            }
+            this.FileTabList.RemoveAt(this.abas.SelectedIndex);
+            this.abas.TabPages.RemoveAt(this.abas.SelectedIndex);
+        }
+
         private void textBox_TextChanged(object sender, EventArgs e) {
             if (!this.CurrentFileTab.Modified) {
                 this.CurrentFileTab.Modified = true;
@@ -108,9 +109,34 @@ namespace Exemplo1 {
             }
         }
 
+        private void abas_TabIndexChanged(object sender, EventArgs e) {
+            if (this.abas.TabCount == 0) {
+                this.CurrentTabIndex = -1;
+                this.CurrentFileTab = null;
+                return;
+            }
+            this.CurrentTabIndex = this.abas.SelectedIndex;
+            this.CurrentFileTab = this.FileTabList[this.CurrentTabIndex];
+        }
+
+        private void menu_sair_Click(object sender, EventArgs e) {
+            if (this.CurrentFileTab != null && this.CurrentFileTab.Modified) {
+                switch (FormNotepad.ConfirmaFecharArquivo()) {
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Yes:
+                        menu_salvar_Click(sender, e);
+                        break;
+                    default:
+                        return;
+                }
+            }
+            Application.Exit();
+        }
+
         private FileTab NovaAba(string filename, bool modified) {
             FileTab novo_arquivo = new FileTab(filename, "New File " + (++this.NewFileCount), modified);
-            
+
             TabPage tab_page = new TabPage(novo_arquivo.DisplayName);
             tab_page.Controls.Add(novo_arquivo.ContentEditor);
 
@@ -118,6 +144,8 @@ namespace Exemplo1 {
             novo_arquivo.ContentEditor.Size = this.abas.Size - new Size(8, 24);
             this.abas.SelectedIndex = Math.Min(this.abas.TabCount - 1, 0);
 
+            this.fecharToolStripMenuItem.Enabled = true;
+            this.FileTabList.Add(novo_arquivo);
             return novo_arquivo;
         }
 
