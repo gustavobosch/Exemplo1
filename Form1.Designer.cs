@@ -34,7 +34,7 @@
             this.dlgFonte = new System.Windows.Forms.FontDialog();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.dlgSalvar = new System.Windows.Forms.SaveFileDialog();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.abas = new System.Windows.Forms.TabControl();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,23 +103,23 @@
             this.fonteToolStripMenuItem.Text = "Fonte";
             this.fonteToolStripMenuItem.Click += new System.EventHandler(this.menu_fonte_Click);
             // 
-            // tabControl1
+            // abas
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.abas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 27);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(722, 434);
-            this.tabControl1.TabIndex = 1;
+            this.abas.Location = new System.Drawing.Point(0, 27);
+            this.abas.Name = "abas";
+            this.abas.SelectedIndex = 0;
+            this.abas.Size = new System.Drawing.Size(723, 432);
+            this.abas.TabIndex = 1;
             // 
             // FormNotepad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 459);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.abas);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
             this.Name = "FormNotepad";
@@ -144,7 +144,7 @@
         private System.Windows.Forms.FontDialog dlgFonte;
         private System.Windows.Forms.OpenFileDialog dlgAbrir;
         private System.Windows.Forms.SaveFileDialog dlgSalvar;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl abas;
     }
 }
 

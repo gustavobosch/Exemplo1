@@ -12,13 +12,16 @@ using System.Windows.Forms;
 namespace Exemplo1 {
     public partial class FormNotepad : Form {
 
-        private static string ApplicationName = "Broco di Nota";
+        public static string ApplicationName = "Broco di Nota";
+        public static AnchorStyles AnchorAll = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
         private FileTab CurrentFileTab;
+        private int NewFileCount;
 
         public FormNotepad() {
             InitializeComponent();
             this.CurrentFileTab = null;
+            this.NewFileCount = 0;
             this.Text = FormNotepad.FormName("", false);
         }
 
@@ -38,7 +41,7 @@ namespace Exemplo1 {
         }
 
         private void menu_novo_Click(object sender, EventArgs e) {
-            if (this.CurrentFileTab.Modified) {
+            if (this.CurrentFileTab != null && this.CurrentFileTab.Modified) {
                 switch (FormNotepad.ConfirmaFecharArquivo()) {
                     case DialogResult.No:
                         break;
@@ -49,9 +52,8 @@ namespace Exemplo1 {
                         return;
                 }
             }
-            this.CurrentFileTab.ContentEditor.Clear();
-            this.CurrentFileTab.FileName = "";
-            this.CurrentFileTab.Modified = false;
+
+            this.CurrentFileTab = NovaAba("", false);
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
@@ -106,6 +108,19 @@ namespace Exemplo1 {
             }
         }
 
+        private FileTab NovaAba(string filename, bool modified) {
+            FileTab novo_arquivo = new FileTab(filename, "New File " + (++this.NewFileCount), modified);
+            
+            TabPage tab_page = new TabPage(novo_arquivo.DisplayName);
+            tab_page.Controls.Add(novo_arquivo.ContentEditor);
+
+            this.abas.TabPages.Add(tab_page);
+            novo_arquivo.ContentEditor.Size = this.abas.Size - new Size(8, 24);
+            this.abas.SelectedIndex = Math.Min(this.abas.TabCount - 1, 0);
+
+            return novo_arquivo;
+        }
+
         private static DialogResult ConfirmaFecharArquivo() {
             return MessageBox.Show("Deseja salvar o arquivo atual?", FormNotepad.ApplicationName, MessageBoxButtons.YesNoCancel);
         }
@@ -138,13 +153,18 @@ namespace Exemplo1 {
 
     public class FileTab {
         public string FileName { get; set; }
+        public string DisplayName { get; set; }
         public bool Modified { get; set; }
         public TextBox ContentEditor { get; set; }
 
-        public FileTab(string FileName, bool Modified) {
+        public FileTab(string FileName, string DisplayName, bool Modified) {
             this.FileName = FileName;
+            this.DisplayName = DisplayName;
             this.Modified = Modified;
             this.ContentEditor = new TextBox();
+            this.ContentEditor.Anchor = FormNotepad.AnchorAll;
+            this.ContentEditor.Multiline = true;
+            this.ContentEditor.ScrollBars = ScrollBars.Vertical;
         }
     }
 }
