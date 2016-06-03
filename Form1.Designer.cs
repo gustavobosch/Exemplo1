@@ -116,10 +116,6 @@
             this.edTexto.TabIndex = 1;
             this.edTexto.TextChanged += new System.EventHandler(this.edTexto_TextChanged);
             // 
-            // dlgAbrir
-            // 
-            this.dlgAbrir.FileName = "openFileDialog1";
-            // 
             // FormNotepad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

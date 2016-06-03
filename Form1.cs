@@ -12,6 +12,8 @@ using System.Windows.Forms;
 namespace Exemplo1 {
     public partial class FormNotepad : Form {
 
+        private static string ApplicationName = "Broco di Nota";
+
         private string CurrentFileName;
         private bool Modified;
 
@@ -23,13 +25,36 @@ namespace Exemplo1 {
         }
 
         private void menu_sair_Click(object sender, EventArgs e) {
+            if (this.Modified) {
+                switch (FormNotepad.ConfirmaFecharArquivo()) {
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Yes:
+                        menu_salvar_Click(sender, e);
+                        break;
+                    default:
+                        return;
+                }
+            }
             Application.Exit();
         }
 
         private void menu_novo_Click(object sender, EventArgs e) {
+            if (this.Modified) {
+                switch (FormNotepad.ConfirmaFecharArquivo()) {
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Yes:
+                        menu_salvar_Click(sender, e);
+                        break;
+                    default:
+                        return;
+                }
+            }
+            edTexto.Clear();
             this.CurrentFileName = "";
             this.Modified = false;
-            edTexto.Clear();
+            this.Text = FormNotepad.FormName(this.CurrentFileName, this.Modified);
         }
 
         private void menu_fonte_Click(object sender, EventArgs e) {
@@ -38,6 +63,17 @@ namespace Exemplo1 {
         }
 
         private void menu_abrir_Click(object sender, EventArgs e) {
+            if (this.Modified) {
+                switch (FormNotepad.ConfirmaFecharArquivo()) {
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Yes:
+                        menu_salvar_Click(sender, e);
+                        break;
+                    default:
+                        return;
+                }
+            }
             dlgAbrir.ShowDialog();
             this.CurrentFileName = dlgAbrir.FileName;
             edTexto.Text = FormNotepad.CarregaArquivo(this.CurrentFileName);
@@ -72,6 +108,10 @@ namespace Exemplo1 {
             }
         }
 
+        private static DialogResult ConfirmaFecharArquivo() {
+            return MessageBox.Show("Deseja salvar o arquivo atual?", FormNotepad.ApplicationName, MessageBoxButtons.YesNoCancel);
+        }
+
         private static string CarregaArquivo(string filename) {
             FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
             using (StreamReader reader = new StreamReader(fs, Encoding.UTF8)) {
@@ -94,7 +134,7 @@ namespace Exemplo1 {
             if (!String.IsNullOrEmpty(current_filename)) {
                 str += current_filename + "  -  ";
             }
-            return str + "Broco di Nota";
+            return str + FormNotepad.ApplicationName;
         }
     }
 }
