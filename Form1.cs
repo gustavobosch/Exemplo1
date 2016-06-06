@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Exemplo1 {
+
     public partial class FormNotepad : Form {
 
         public static string ApplicationName = "Broco di Nota";
@@ -142,7 +143,7 @@ namespace Exemplo1 {
 
             this.abas.TabPages.Add(tab_page);
             novo_arquivo.ContentEditor.Size = this.abas.Size - new Size(8, 24);
-            this.abas.SelectedIndex = Math.Min(this.abas.TabCount - 1, 0);
+            this.abas.SelectedIndex = Math.Max(this.abas.TabCount - 1, 0);
 
             this.fecharToolStripMenuItem.Enabled = true;
             this.FileTabList.Add(novo_arquivo);
