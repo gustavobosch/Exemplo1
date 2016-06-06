@@ -136,5 +136,9 @@ namespace Exemplo1 {
             }
             return str + FormNotepad.ApplicationName;
         }
+
+        private void sobreToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show("Versão " + Application.ProductVersion, FormNotepad.ApplicationName);
+        }
     }
 }

@@ -35,6 +35,7 @@
             this.dlgFonte = new System.Windows.Forms.FontDialog();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.dlgSalvar = new System.Windows.Forms.SaveFileDialog();
+            this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +43,8 @@
             // 
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.arquivoToolStripMenuItem,
-            this.fonteToolStripMenuItem});
+            this.fonteToolStripMenuItem,
+            this.sobreToolStripMenuItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(722, 24);
@@ -116,6 +118,13 @@
             this.edTexto.TabIndex = 1;
             this.edTexto.TextChanged += new System.EventHandler(this.edTexto_TextChanged);
             // 
+            // sobreToolStripMenuItem
+            // 
+            this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.sobreToolStripMenuItem.Text = "Sobre";
+            this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
+            // 
             // FormNotepad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,6 +156,7 @@
         private System.Windows.Forms.FontDialog dlgFonte;
         private System.Windows.Forms.OpenFileDialog dlgAbrir;
         private System.Windows.Forms.SaveFileDialog dlgSalvar;
+        private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
     }
 }
 
