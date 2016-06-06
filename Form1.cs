@@ -43,6 +43,10 @@ namespace Exemplo1 {
 
         private void menu_abrir_Click(object sender, EventArgs e) {
             dlgAbrir.ShowDialog();
+            if (this.ArquivoJaAberto(dlgAbrir.FileName)) {
+                this.abas.SelectedIndex = this.IndiceArquivo(dlgAbrir.FileName);
+                return;
+            }
             this.CurrentFileTab = NovaAba(dlgAbrir.FileName, false);
             this.CurrentFileTab.ContentEditor.Text = FormNotepad.CarregaArquivo(this.CurrentFileTab.FileName);
             this.CurrentFileTab.Modified = false;
@@ -65,6 +69,11 @@ namespace Exemplo1 {
 
         private void menu_salvarcomo_Click(object sender, EventArgs e) {
             dlgSalvar.ShowDialog();
+            if (!this.PodeSobrescreverArquivo(dlgSalvar.FileName)) {
+                MessageBox.Show("Arquivo já está aberto no editor!", FormNotepad.ApplicationName);
+                this.abas.SelectedIndex = this.IndiceArquivo(dlgAbrir.FileName);
+                return;
+            }
             this.CurrentFileTab.FileName = dlgSalvar.FileName;
             string texto = this.CurrentFileTab.ContentEditor.Text;
             FormNotepad.SalvaArquivo(this.CurrentFileTab.FileName, texto);
@@ -123,6 +132,24 @@ namespace Exemplo1 {
                 }
             }
             Application.Exit();
+        }
+
+        private bool PodeSobrescreverArquivo(string filename) {
+            return !this.ArquivoJaAberto(filename) || this.IndiceArquivo(dlgSalvar.FileName) == this.abas.SelectedIndex;
+        }
+
+        private bool ArquivoJaAberto(string filename) {
+            return IndiceArquivo(filename) != -1;
+        }
+
+        private int IndiceArquivo(string filename) {
+            for (int i = 0; i < FileTabList.Count; i++) {
+                FileTab file = FileTabList[i];
+                if (file.FileName.Equals(filename)) {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         private FileTab NovaAba(string filename, bool modified) {
