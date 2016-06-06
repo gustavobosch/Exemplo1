@@ -71,7 +71,6 @@ namespace Exemplo1 {
             dlgSalvar.ShowDialog();
             if (!this.PodeSobrescreverArquivo(dlgSalvar.FileName)) {
                 MessageBox.Show("Arquivo já está aberto no editor!", FormNotepad.ApplicationName);
-                this.abas.SelectedIndex = this.IndiceArquivo(dlgAbrir.FileName);
                 return;
             }
             this.CurrentFileTab.FileName = dlgSalvar.FileName;
