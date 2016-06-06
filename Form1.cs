@@ -37,38 +37,17 @@ namespace Exemplo1 {
         }
 
         private void menu_novo_Click(object sender, EventArgs e) {
-            if (this.CurrentFileTab != null && this.CurrentFileTab.Modified) {
-                switch (FormNotepad.ConfirmaFecharArquivo()) {
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Yes:
-                        menu_salvar_Click(sender, e);
-                        break;
-                    default:
-                        return;
-                }
-            }
             this.CurrentFileTab = NovaAba("", false);
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
         }
 
         private void menu_abrir_Click(object sender, EventArgs e) {
-            if (this.CurrentFileTab != null && this.CurrentFileTab.Modified) {
-                switch (FormNotepad.ConfirmaFecharArquivo()) {
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Yes:
-                        menu_salvar_Click(sender, e);
-                        break;
-                    default:
-                        return;
-                }
-            }
             dlgAbrir.ShowDialog();
             this.CurrentFileTab = NovaAba(dlgAbrir.FileName, false);
             this.CurrentFileTab.ContentEditor.Text = FormNotepad.CarregaArquivo(this.CurrentFileTab.FileName);
             this.CurrentFileTab.Modified = false;
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
+            this.abas.SelectedTab.Text = FormNotepad.TabName(this.CurrentFileTab.DisplayName, this.CurrentFileTab.Modified);
         }
 
         private void menu_salvar_Click(object sender, EventArgs e) {
@@ -79,7 +58,9 @@ namespace Exemplo1 {
             string texto = this.CurrentFileTab.ContentEditor.Text;
             FormNotepad.SalvaArquivo(this.CurrentFileTab.FileName, texto);
             this.CurrentFileTab.Modified = false;
+            this.CurrentFileTab.DisplayName = FormNotepad.DisplayName(this.CurrentFileTab.FileName);
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
+            this.abas.SelectedTab.Text = FormNotepad.TabName(this.CurrentFileTab.DisplayName, this.CurrentFileTab.Modified);
         }
 
         private void menu_salvarcomo_Click(object sender, EventArgs e) {
@@ -88,12 +69,25 @@ namespace Exemplo1 {
             string texto = this.CurrentFileTab.ContentEditor.Text;
             FormNotepad.SalvaArquivo(this.CurrentFileTab.FileName, texto);
             this.CurrentFileTab.Modified = false;
+            this.CurrentFileTab.DisplayName = FormNotepad.DisplayName(this.CurrentFileTab.FileName);
             this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
+            this.abas.SelectedTab.Text = FormNotepad.TabName(this.CurrentFileTab.DisplayName, this.CurrentFileTab.Modified);
         }
 
         private void menu_fechar_Click(object sender, EventArgs e) {
-            this.fecharToolStripMenuItem.Enabled = (this.abas.TabCount - 1 > 0);
+            if (this.CurrentFileTab != null && this.CurrentFileTab.Modified) {
+                switch (FormNotepad.ConfirmaFecharArquivo(this.CurrentFileTab.DisplayName)) {
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Yes:
+                        menu_salvar_Click(sender, e);
+                        break;
+                    default:
+                        return;
+                }
+            }
 
+            this.fecharToolStripMenuItem.Enabled = (this.abas.TabCount - 1 > 0);
             if (this.abas.TabCount <= 0) {
                 this.CurrentTabIndex = -1;
                 this.CurrentFileTab = null;
@@ -101,16 +95,18 @@ namespace Exemplo1 {
             }
             this.FileTabList.RemoveAt(this.abas.SelectedIndex);
             this.abas.TabPages.RemoveAt(this.abas.SelectedIndex);
+            this.abas_SelectedIndexChanged(sender, e);
         }
 
         private void textBox_TextChanged(object sender, EventArgs e) {
             if (!this.CurrentFileTab.Modified) {
                 this.CurrentFileTab.Modified = true;
                 this.Text = FormNotepad.FormName(this.CurrentFileTab.FileName, this.CurrentFileTab.Modified);
+                this.abas.SelectedTab.Text = FormNotepad.TabName(this.CurrentFileTab.DisplayName, this.CurrentFileTab.Modified);
             }
         }
 
-        private void abas_TabIndexChanged(object sender, EventArgs e) {
+        private void abas_SelectedIndexChanged(object sender, EventArgs e) {
             if (this.abas.TabCount == 0) {
                 this.CurrentTabIndex = -1;
                 this.CurrentFileTab = null;
@@ -121,37 +117,37 @@ namespace Exemplo1 {
         }
 
         private void menu_sair_Click(object sender, EventArgs e) {
-            if (this.CurrentFileTab != null && this.CurrentFileTab.Modified) {
-                switch (FormNotepad.ConfirmaFecharArquivo()) {
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Yes:
-                        menu_salvar_Click(sender, e);
-                        break;
-                    default:
-                        return;
+            foreach (FileTab arquivo in this.FileTabList) {
+                if (arquivo.Modified && DialogResult.Yes.Equals(FormNotepad.ConfirmaFecharArquivo(arquivo.DisplayName))) {
+                    menu_salvar_Click(sender, e);
                 }
             }
             Application.Exit();
         }
 
         private FileTab NovaAba(string filename, bool modified) {
-            FileTab novo_arquivo = new FileTab(filename, "New File " + (++this.NewFileCount), modified);
+            FileTab novo_arquivo = null;
+            if (String.IsNullOrEmpty(filename)) {
+                novo_arquivo = new FileTab(filename, "New File " + (++this.NewFileCount), modified);
+            } else {
+                novo_arquivo = new FileTab(filename, FormNotepad.DisplayName(filename), modified);
+            }
+            this.FileTabList.Add(novo_arquivo);
 
             TabPage tab_page = new TabPage(novo_arquivo.DisplayName);
             tab_page.Controls.Add(novo_arquivo.ContentEditor);
 
             this.abas.TabPages.Add(tab_page);
             novo_arquivo.ContentEditor.Size = this.abas.Size - new Size(8, 24);
-            this.abas.SelectedIndex = Math.Max(this.abas.TabCount - 1, 0);
+            novo_arquivo.ContentEditor.TextChanged += this.textBox_TextChanged;
 
+            this.abas.SelectedIndex = Math.Max(this.abas.TabCount - 1, 0);
             this.fecharToolStripMenuItem.Enabled = true;
-            this.FileTabList.Add(novo_arquivo);
             return novo_arquivo;
         }
 
-        private static DialogResult ConfirmaFecharArquivo() {
-            return MessageBox.Show("Deseja salvar o arquivo atual?", FormNotepad.ApplicationName, MessageBoxButtons.YesNoCancel);
+        private static DialogResult ConfirmaFecharArquivo(string filename) {
+            return MessageBox.Show("Deseja salvar o arquivo " + filename + "?", FormNotepad.ApplicationName, MessageBoxButtons.YesNoCancel);
         }
 
         private static string CarregaArquivo(string filename) {
@@ -170,13 +166,25 @@ namespace Exemplo1 {
 
         private static string FormName(string current_filename, bool modified) {
             string str = "";
-            if (modified) {
-                str += "*";
-            }
             if (!String.IsNullOrEmpty(current_filename)) {
                 str += current_filename + "  -  ";
             }
             return str + FormNotepad.ApplicationName;
+        }
+
+        private static string DisplayName(string filename) {
+            return filename.Substring(filename.LastIndexOf("\\") + 1);
+        }
+
+        private static string TabName(string current_displayname, bool modified) {
+            string str = "";
+            if (!String.IsNullOrEmpty(current_displayname)) {
+                str += current_displayname;
+            }
+            if (modified) {
+                str += "*";
+            }
+            return str;
         }
     }
 

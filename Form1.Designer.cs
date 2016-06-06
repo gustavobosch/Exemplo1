@@ -29,13 +29,13 @@
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fonteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dlgFonte = new System.Windows.Forms.FontDialog();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.dlgSalvar = new System.Windows.Forms.SaveFileDialog();
             this.abas = new System.Windows.Forms.TabControl();
-            this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,6 +91,13 @@
             this.salvarComoToolStripMenuItem.Text = "Salvar Como...";
             this.salvarComoToolStripMenuItem.Click += new System.EventHandler(this.menu_salvarcomo_Click);
             // 
+            // fecharToolStripMenuItem
+            // 
+            this.fecharToolStripMenuItem.Name = "fecharToolStripMenuItem";
+            this.fecharToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.fecharToolStripMenuItem.Text = "Fechar";
+            this.fecharToolStripMenuItem.Click += new System.EventHandler(this.menu_fechar_Click);
+            // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
@@ -115,14 +122,7 @@
             this.abas.SelectedIndex = 0;
             this.abas.Size = new System.Drawing.Size(723, 432);
             this.abas.TabIndex = 1;
-            this.abas.TabIndexChanged += new System.EventHandler(this.abas_TabIndexChanged);
-            // 
-            // fecharToolStripMenuItem
-            // 
-            this.fecharToolStripMenuItem.Name = "fecharToolStripMenuItem";
-            this.fecharToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.fecharToolStripMenuItem.Text = "Fechar";
-            this.fecharToolStripMenuItem.Click += new System.EventHandler(this.menu_fechar_Click);
+            this.abas.SelectedIndexChanged += new System.EventHandler(this.abas_SelectedIndexChanged);
             // 
             // FormNotepad
             // 
